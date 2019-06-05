@@ -1,9 +1,15 @@
 <resources>
     <string name="app_name">TaskMaster</string>
-    <string name="fromDb">Fill your Tasks</string>
+    <string name="fromDb">See your Tasks</string>
     <string name="hintName">Task Name</string>
     <string name="hintDes">Task Description</string>
     <string name="btnNewTask">New Task</string>
+    <string name="loginBtn">Login</string>
+    <string name="logoutBtn">Logout</string>
+    <string name="radio_available">Available</string>
+    <string name="radio_assigned">Assigned</string>
+    <string name="radio_accepted">Accepted</string>
+    <string name="radio_finished">Finished</string>
 
     <!--nav buttons-->
     <string name="navNewTask">Create Your Tasks</string>

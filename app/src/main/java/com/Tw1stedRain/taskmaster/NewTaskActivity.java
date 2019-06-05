@@ -7,15 +7,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class NewTaskActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
+    FirebaseUser user;
+
+    EditText name;
+    EditText description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,19 +31,21 @@ public class NewTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_task);
 
         db = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
+        TextView userDisplay = findViewById(R.id.userDisplay);
+        userDisplay.setText(user.getDisplayName());
     }
 
     // adding task to db
     public void newTaskClick(View view) {
-        // TODO: make form input to build out task. will remove default task at that time
+        name = findViewById(R.id.name_task);
+        description = findViewById(R.id.description_task);
         Task task = new Task();
-        task.setName("connect firebase");
-        task.setDescription("follow example");
+        task.setName(name.getText().toString());
+        task.setDescription(description.getText().toString());
         task.setAvailable(true);
-        task.setAssigned(false);
-        task.setAccepted(false);
-        task.setFinished(false);
+
 
         db.collection("tasks")
                 .add(task)
@@ -52,6 +62,8 @@ public class NewTaskActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    // nav buttons
 
     public void goHomeClick(View view) {
         Intent intent = new Intent(this, MainActivity.class);
