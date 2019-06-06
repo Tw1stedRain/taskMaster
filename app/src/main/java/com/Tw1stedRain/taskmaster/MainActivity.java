@@ -40,10 +40,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     TaskLayoutAdapter adapter;
-
-    Context context;
-    TextView title;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-
-        context = this;
-
-        title = findViewById(R.id.task_name);
-        final String searchTitle = title.getText().toString();
-
 
         // recycler view everything
         List<Task> empty = new ArrayList<>();
@@ -66,28 +57,6 @@ public class MainActivity extends AppCompatActivity {
         adapter = new TaskLayoutAdapter(empty);
         recyclerView.setAdapter(adapter);
 
-        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                db.collection("tasks")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    QuerySnapshot snap = task.getResult();
-                                    for (DocumentSnapshot doc : snap.getDocuments()) {
-                                        final Task thisTask = (Task) doc.get(doc.indexOf(searchTitle));
-                                        Intent intent = new Intent(context, TaskDetails.class);
-                                        intent.putExtra("Name", thisTask.getName());
-                                        intent.putExtra("Description", thisTask.getDescription());
-                                        intent.putExtra("Assigned User", thisTask.getAssignedUser());
-                                        startActivity(intent);
-                                    }
-                                }                            }
-                        });
-            }
-        });
 
         setUI();
     }

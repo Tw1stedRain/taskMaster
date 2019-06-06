@@ -1,5 +1,7 @@
 package com.Tw1stedRain.taskmaster;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +29,20 @@ public class TaskLayoutAdapter extends RecyclerView.Adapter<TaskLayoutAdapter.Ta
             this.textState = itemView.findViewById(R.id.task_state);
         }
 
-        public void setTask(Task task) {
+        public void setTask(final Task task) {
             this.textName.setText(task.getName());
             this.textDescription.setText(task.getDescription());
             this.textState.setText(String.format("Assigned user:  %s", task.getAssignedUser()));
+
+            this.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = itemView.getContext();
+                    Intent intent = new Intent(context, TaskDetails.class);
+                    intent.putExtra("taskId", task.getId());
+                    context.startActivity(intent);
+                }
+            });
         }
 
     }
