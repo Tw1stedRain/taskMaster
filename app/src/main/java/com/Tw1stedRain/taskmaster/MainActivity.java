@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     TaskLayoutAdapter adapter;
 
+    Context context;
+    TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
 
+        context = this;
+
+        title = findViewById(R.id.task_name);
+        final String searchTitle = title.getText().toString();
+
 
         // recycler view everything
         List<Task> empty = new ArrayList<>();
@@ -57,6 +65,29 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new TaskLayoutAdapter(empty);
         recyclerView.setAdapter(adapter);
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                db.collection("tasks")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    QuerySnapshot snap = task.getResult();
+                                    for (DocumentSnapshot doc : snap.getDocuments()) {
+                                        final Task thisTask = (Task) doc.get(doc.indexOf(searchTitle));
+                                        Intent intent = new Intent(context, TaskDetails.class);
+                                        intent.putExtra("Name", thisTask.getName());
+                                        intent.putExtra("Description", thisTask.getDescription());
+                                        intent.putExtra("Assigned User", thisTask.getAssignedUser());
+                                        startActivity(intent);
+                                    }
+                                }                            }
+                        });
+            }
+        });
 
         setUI();
     }
@@ -77,14 +108,17 @@ public class MainActivity extends AppCompatActivity {
     private void setUI() {
         Button login = findViewById(R.id.login_btn);
         Button logout = findViewById(R.id.logout_btn);
+        Button nav = findViewById(R.id.newTaskBtn);
         TextView name = findViewById(R.id.users_name);
         if (user != null) {
             login.setEnabled(false);
             logout.setEnabled(true);
+            nav.setEnabled(true);
             name.setText(user.getDisplayName());
         } else {
             login.setEnabled(true);
             logout.setEnabled(false);
+            nav.setEnabled(false);
             name.setText("");
         }
     }
@@ -118,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // retrieving info from the db
+//     retrieving info from the db
     public void onReadClick(View view) {
         //TODO: will remove button at some point
         db.collection("tasks")

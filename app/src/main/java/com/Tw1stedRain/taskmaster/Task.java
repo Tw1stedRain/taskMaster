@@ -4,10 +4,13 @@ public class Task {
 
     private String name;
     private String description;
-    private boolean available;
-    private boolean assigned;
-    private boolean accepted;
-    private boolean finished;
+    private String assignedUser;
+
+    private boolean isStarted;
+    private boolean isAssigned() {
+        return this.assignedUser != null;
+    }
+
 
 
     public String getName() {
@@ -26,37 +29,19 @@ public class Task {
         this.description = description;
     }
 
-    public boolean isAvailable() {
-        return available;
+    public String getAssignedUser() {
+        return assignedUser;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
+    public void setAssignedUser(String assignedUser) {
+        this.assignedUser = assignedUser;
     }
 
-    public boolean isAssigned() {
-        return assigned;
+    public boolean isStarted() {
+        return isStarted;
     }
 
-    public void setAssigned(boolean assigned) {
-        this.assigned = assigned;
+    public void setStarted(boolean started) {
+        isStarted = started;
     }
-
-    public boolean isAccepted() {
-        return accepted;
-    }
-
-    public void setAccepted(boolean accepted) {
-        this.accepted = accepted;
-    }
-
-    public boolean isFinished() {
-        return finished;
-    }
-
-    public void setFinished(boolean finished) {
-        this.finished = finished;
-    }
-
-
 }

@@ -44,7 +44,7 @@ public class NewTaskActivity extends AppCompatActivity {
         Task task = new Task();
         task.setName(name.getText().toString());
         task.setDescription(description.getText().toString());
-        task.setAvailable(true);
+        task.setAssignedUser(user.getDisplayName());
 
 
         db.collection("tasks")

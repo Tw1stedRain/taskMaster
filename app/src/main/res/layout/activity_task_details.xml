@@ -7,7 +7,7 @@
     tools:context=".TaskDetails">
 
     <TextView
-        android:id="@+id/task-name"
+        android:id="@+id/task_detail_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/task-description"
+        android:id="@+id/task_detail_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -26,7 +26,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task-name" />
+        app:layout_constraintTop_toBottomOf="@+id/task_detail_name" />
 
     <TextView
         android:id="@+id/details_user_name"
@@ -41,31 +41,17 @@
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="232dp"
-        android:layout_height="126dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="232dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <RadioButton
-            android:id="@+id/available"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/radio_available"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="196dp" />
-
-        <RadioButton
-            android:id="@+id/assigned"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/radio_assigned"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="248dp" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_detail_description">
 
         <RadioButton
             android:id="@+id/accepted"
@@ -73,7 +59,8 @@
             android:layout_height="wrap_content"
             android:text="@string/radio_accepted"
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="149dp" />
+            tools:layout_editor_absoluteY="149dp"
+            android:onClick="onRadioFinished"/>
 
         <RadioButton
             android:id="@+id/finished"
@@ -81,7 +68,35 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/radio_finished"
-            />
+            android:onClick="onRadioFinished"/>
     </RadioGroup>
+
+    <Button
+        android:id="@+id/details_to_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="navHome"
+        android:text="@string/navHome"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/details_to_newTask"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <Button
+        android:id="@+id/details_to_newTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="navNewTask"
+        android:text="@string/navNewTask"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

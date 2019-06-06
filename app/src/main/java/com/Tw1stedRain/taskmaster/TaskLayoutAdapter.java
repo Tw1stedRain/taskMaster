@@ -30,7 +30,7 @@ public class TaskLayoutAdapter extends RecyclerView.Adapter<TaskLayoutAdapter.Ta
         public void setTask(Task task) {
             this.textName.setText(task.getName());
             this.textDescription.setText(task.getDescription());
-            this.textState.setText(String.format("%s", task.isAvailable()));
+            this.textState.setText(String.format("Assigned user:  %s", task.getAssignedUser()));
         }
 
     }
