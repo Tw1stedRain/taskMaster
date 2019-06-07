@@ -13,7 +13,7 @@ public class Task {
     @Exclude
     private String id;
 
-    private boolean isStarted;
+    private boolean isFinished;
     private boolean isAssigned() {
         return this.assignedUser != null;
     }
@@ -51,12 +51,12 @@ public class Task {
         this.assignedUser = assignedUser;
     }
 
-    public boolean isStarted() {
-        return isStarted;
+    public boolean isFinished() {
+        return isFinished;
     }
 
-    public void setStarted(boolean started) {
-        isStarted = started;
+    public void setFinished(boolean finished) {
+        isFinished = finished;
     }
 
 

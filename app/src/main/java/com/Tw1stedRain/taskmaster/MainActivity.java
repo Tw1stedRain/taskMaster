@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     TaskLayoutAdapter adapter;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d("TASK", "ID: " + doc.getId() + ", Name: " + doc.get("name"));
 
                                 Task fb = doc.toObject(Task.class);
+                                fb.setId(doc.getId());
                                 tasks.add(fb);
                             }
                             adapter.setTasks(tasks);
