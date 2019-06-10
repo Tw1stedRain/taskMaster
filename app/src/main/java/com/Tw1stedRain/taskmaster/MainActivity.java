@@ -25,6 +25,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//     retrieving info from the db
+    //     retrieving info from the db
     public void onReadClick(View view) {
         //TODO: will remove button at some point
         db.collection("tasks")
@@ -151,5 +153,22 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewTaskActivity.class);
         startActivity(intent);
 
+    }
+
+    // device token weirdness
+    public void getDeviceToken(View view) {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("MAinActivity", "get instance failed", task.getException());
+                            return;
+                        }
+                        String token = task.getResult().getToken();
+                        Log.d("MAinActivity", token);
+                    }
+
+                });
     }
 }
