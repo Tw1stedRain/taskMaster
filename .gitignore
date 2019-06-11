@@ -7,3 +7,5 @@
 /captures
 .externalNativeBuild
 google-services.json
+node_modules/
+.eslintrc
