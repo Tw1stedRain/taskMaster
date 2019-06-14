@@ -155,6 +155,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void newUserDirectory(View view) {
+        Intent intent = new Intent(this, UserActivity.class);
+        startActivity(intent);
+    }
+
     // device token weirdness
     public void getDeviceToken(View view) {
         FirebaseInstanceId.getInstance().getInstanceId()

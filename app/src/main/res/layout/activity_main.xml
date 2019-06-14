@@ -83,4 +83,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="newUserDirectory"
+        android:text="New User"
+        app:layout_constraintEnd_toStartOf="@+id/logout_btn"
+        app:layout_constraintStart_toEndOf="@+id/login_btn"
+        tools:layout_editor_absoluteY="594dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
