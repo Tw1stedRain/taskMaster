@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">TaskMaster</string>
+    <string name="fromDb">See All Tasks</string>
+    <string name="hintName">Task Name</string>
+    <string name="hintDes">Task Description</string>
+    <string name="btnNewTask">New Task</string>
+    <string name="loginBtn">Login</string>
+    <string name="logoutBtn">Logout</string>
+
+    <string name="radio_accepted">Started/ In Progress</string>
+    <string name="radio_finished">Finished</string>
+
+    <!--nav buttons-->
+    <string name="navNewTask">Create Your Tasks</string>
+    <string name="navHome">Home</string>
+
+
 </resources>
